@@ -15,7 +15,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::where('status',1)->get();
+        // $categories = Category::where('status',1)->orderBy('id', 'DESC')->has('products')->get();
+        $categories = Category::where('status',1)->orderBy('id', 'DESC')->get();
         return view('product.create',compact('categories'));
     }
     public function store(Request $request){
@@ -33,11 +34,45 @@ class ProductController extends Controller
     }
     }
     public function index(Request $request){
-        $products = Product::paginate(10);
+        // $products = Product::paginate(10);
+        $products = Product::get();
         // dd($product);
         return view('product.index',compact('products'));
+    }
+    public function edit($id)
+    {
+        $categories = Category::where('status',1)->orderBy('id', 'DESC')->get();
+        $product = Product::where('id',$id)->first();
+        return view('product.edit',compact('product', 'categories'));  
+    }
 
+    public function update(Request $request,$id)
+    {
+        $product = Product::where('id',$id)->first(); 
+        $data = $request->except('_token','image');
+         if($request->file('image'))
+        {
+            $data['image'] = $request->file('image')->storeAs($this->destinationPath,time().'.'.$request->file('image')->getClientOriginalExtension());
+        }
+        if(file_exists($this->destinationPath))
+        {
+            unlink($this->destinationPath);
+        }
+           $product->update($data);
+
+        return redirect()->route('product')->with('success','Item updated successfully!');   
 
     }
+    public function destroy($id)
+    {
+         $product = Product::where('id',$id)->first();
+          if(file_exists($this->destinationPath))
+        {
+            unlink($this->destinationPath);
+        }
+         $product->delete();
+         return redirect()->route('product');
+    }
+
 
 }

@@ -43,3 +43,11 @@ Route::post('/subcategoryStore', [App\Http\Controllers\SubCategoryController::cl
 Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
 Route::get('/productCreate', [App\Http\Controllers\ProductController::class, 'create'])->name('product.create');
 Route::post('/productStore', [App\Http\Controllers\ProductController::class, 'store'])->name('product.store');
+Route::get('/productEdit/{product}', [App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit');
+Route::post('/productUpdate/{product}', [App\Http\Controllers\ProductController::class, 'update'])->name('product.update');
+
+Route::get('/productDelete/{category}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('product.delete');
+
+
+
+

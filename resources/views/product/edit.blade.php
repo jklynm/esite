@@ -35,7 +35,7 @@
 
               <!-- form start -->
               <div class="col-md-6">
-                <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
+                <form method="post" action="{{route('product.update',$product->id)}}" enctype="multipart/form-data">
                  @csrf
                   <div class="card-body">
                     <div class="form-group">
@@ -49,24 +49,40 @@
 
                     <div class="form-group">
                       <label for="exampleInputEmail1">Title</label>
-                      <input type="text" class="form-control" name="title" placeholder="Enter Title" required="">
+                      <input type="text" class="form-control" name="title" value="{{$product->title}}" placeholder="Enter Title" required="">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Price</label>
-                      <input type="number" class="form-control" name="price" placeholder="Enter Price">
+                      <input type="number" class="form-control" value="{{$product->price}}" name="price" placeholder="Enter Price">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Description</label>
-                      <textarea class="form-control" name="description"></textarea>
+                      <textarea class="form-control" name="description"> {{$product->description}}</textarea>
                     </div>
                     <div class="form-group">
                       <label for="image">Product Image</label>
                       <input type="file" class="form-control" name="image">
+                    @if(file_exists('storage/'.$product->image) && $product->image !== '' && $product->image !== null)
+                      <img src="{{asset('storage/'.$product->image)}}" height="80">
+
+                    @else
+                    {{$product->image}}  
+                    <img src="{{asset('storage/'.$product->image)}}">
+                   
+                    @endif  
+
                     </div>
                     <div class="form-radio">
                       <label class="form-radio-label" for="exampleCheck1">Status</label>
-                      <input type="radio" name="status" value="1" checked=""> Enable &nbsp;
-                      <input type="radio" name="status" value="0"> Disable
+                      @if($product->status == 0) 
+                      <!-- {{$product->status}} -->
+                      <input type="radio" name="status" value="0" checked=""> Enable &nbsp;
+                      <input type="radio" name="status" value="1"> Disable
+                      @else
+                      <input type="radio" name="status" value="0" > Enable &nbsp;
+                      <input type="radio" name="status" value="1" checked=""> Disable
+                      @endif
+
                     </div>
                   </div>
                   <!-- /.card-body -->

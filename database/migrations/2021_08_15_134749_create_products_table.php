@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->longText('description')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });

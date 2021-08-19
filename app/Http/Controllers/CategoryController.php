@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Http\Requests\Category\StoreRequest;
 use \App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::orderBy('id', 'DESC')->get();
         return view('category.index',compact('categories'));
     }
 
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     	return view('category.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->except('_token');
         // $category = \App\Models\Category::create($data);

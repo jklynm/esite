@@ -22,7 +22,15 @@ adasflaskdf
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+     {{--   @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+           @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+      </div>
+    @endif --}} 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -41,11 +49,17 @@ adasflaskdf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter Title">
+                    @error('title')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Description</label>
-                    <textarea class="form-control" name="description"></textarea>
+                    <textarea class="form-control @error('description') is-invalid @enderror" name="description"></textarea>
+                    @error('description')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                   </div>
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" name="status" value="1">

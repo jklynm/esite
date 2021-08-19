@@ -93,7 +93,7 @@
 		            	@else <button class="btn btn-success">Enable</button>
 		            	@endif
 		            </td>		           
-		            <td> <a href="{{route('category.edit',$val->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a> &nbsp; <a href="" class="btn btn-danger"><i class="fa fa-times"></i></a></td>
+		            <td> <a href="{{route('product.edit',$val->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a> &nbsp; <a href="" class="btn btn-danger"><i class="fa fa-times"></i></a></td>
 		          </tr>
 		          @endforeach		        
 		          </tbody>
